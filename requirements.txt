@@ -1,0 +1,2 @@
+googletrans~=2.4.0
+setuptools~=47.1.1
