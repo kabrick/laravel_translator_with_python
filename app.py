@@ -49,16 +49,20 @@ while True:
     for key, value in dict_from_en_file.items():
         print(current_key_being_translated, "/", number_of_translation_keys)
 
-        translated_value = translator.translate(value, dest=translate_to, src='en').text
+        try:
+            translated_value = translator.translate(value, dest=translate_to, src='en').text
 
-        # check if translated value is still destination lang and use lower case
-        if translator.detect(translated_value).lang == 'en':
-            translated_value = translator.translate(value.lower(), dest=translate_to, src='en').text
+            # check if translated value is still destination lang and use lower case
+            if translated_value is None or translator.detect(translated_value).lang == 'en':
+                translated_value = translator.translate(value.lower(), dest=translate_to, src='en').text
 
-        print(key, "=>", translated_value)
+            print(key, "=>", translated_value)
+            f.write("    \"" + key + "\" => \"" + translated_value + "\", \n")
+        except:
+            print("Failed to translate:", key, "=>", value)
+            f.write("    \"" + key + "\" => \"" + value + "\", \n")
+
         print("")
-
-        f.write("    \"" + key + "\" => \"" + translated_value + "\", \n")
 
         current_key_being_translated += 1
 
