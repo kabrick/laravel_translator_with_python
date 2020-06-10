@@ -1,5 +1,5 @@
 import os
-from laravel_translator import short_codes
+import short_codes
 import json
 from googletrans import Translator
 
@@ -58,7 +58,7 @@ while True:
         print(key, "=>", translated_value)
         print("")
 
-        f.write("    \"" + key + "\" => \"" + translated_value + "\" \n")
+        f.write("    \"" + key + "\" => \"" + translated_value + "\", \n")
 
         current_key_being_translated += 1
 
